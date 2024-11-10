@@ -3,6 +3,7 @@ import { useState } from 'react';
 import gitLogo from '../assets/github.png'
 import Input from '../components/Input';
 import Button from '../components/Button';
+import ButtonRemove from '../components/ButtonRemove';
 import ItemRepo from '../components/ItemRepo';
 import { api } from '../services/api';
 
@@ -37,6 +38,10 @@ function App() {
     console.log('Removendo registro', id);
 
     // utilizar filter.
+    // Cria uma nova lista de repositórios, excluindo o repositório com o `id` especificado
+    const updatedRepos = repos.filter(repo => repo.id !== id);
+    // Atualiza o estado `repos` com a lista filtrada
+    setRepos(updatedRepos);
   }
 
 
@@ -46,6 +51,7 @@ function App() {
       <Input value={currentRepo} onChange={(e) => setCurrentRepo(e.target.value)} />
       <Button onClick={handleSearchRepo}/>
       {repos.map(repo => <ItemRepo handleRemoveRepo={handleRemoveRepo} repo={repo}/>)}
+      <ButtonRemove onClick={handleRemoveRepo}/>
     </Container>
   );
 }
